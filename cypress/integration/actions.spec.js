@@ -1,11 +1,18 @@
 /// <reference types="cypress" />
 
+// pause before each click
 Cypress.Commands.overwrite('click', (click, ...args) => {
-  // pause after each click
-  return click(...args).then(subject => {
-    return Cypress.Promise.resolve(subject).delay(1000)
+  return Cypress.Promise.delay(1000).then(() => {
+    return click(...args)
   })
 })
+
+// pause after each click
+// Cypress.Commands.overwrite('click', (click, ...args) => {
+//   return click(...args).then(subject => {
+//     return Cypress.Promise.resolve(subject).delay(1000)
+//   })
+// })
 
 context('Actions', () => {
   beforeEach(() => {
