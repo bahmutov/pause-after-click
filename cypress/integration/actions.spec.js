@@ -1,11 +1,22 @@
 /// <reference types="cypress" />
 
-// pause before each click
-Cypress.Commands.overwrite('click', (click, ...args) => {
-  return Cypress.Promise.delay(1000).then(() => {
-    return click(...args)
+console.log('Cypress', Cypress)
+console.log('All Cypress commands', Object.keys(Cypress.Commands._commands))
+
+Object.keys(Cypress.Commands._commands).forEach(commandName => {
+  Cypress.Commands.overwrite(commandName, (commandFn, ...args) => {
+    return Cypress.Promise.delay(1000).then(() => {
+      return commandFn(...args)
+    })
   })
 })
+
+// pause before each click
+// Cypress.Commands.overwrite('click', (click, ...args) => {
+//   return Cypress.Promise.delay(1000).then(() => {
+//     return click(...args)
+//   })
+// })
 
 // pause after each click
 // Cypress.Commands.overwrite('click', (click, ...args) => {
