@@ -1,8 +1,8 @@
 /// <reference types="cypress" />
 
+// overwrite all available commands
 console.log('Cypress', Cypress)
 console.log('All Cypress commands', Object.keys(Cypress.Commands._commands))
-
 Object.keys(Cypress.Commands._commands).forEach(commandName => {
   Cypress.Commands.overwrite(commandName, (commandFn, ...args) => {
     return Cypress.Promise.delay(1000).then(() => {
